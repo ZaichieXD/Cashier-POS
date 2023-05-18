@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Cashier_POS.Models;
+using Cashier_POS.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cashier_POS.Controllers;
 
@@ -16,6 +18,23 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         return View();
+    }
+
+    public bool LoginAction(string username, string password)
+    {
+        using (CashierPosDBContext context = new CashierPosDBContext())
+        {
+            List<UserModel> users = context.Users.ToList();
+
+            if (users.Where(u => u.UserName == username && u.Password == password).Count() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     public IActionResult Privacy()

@@ -1,5 +1,6 @@
 ﻿let validatedUsername = "";
 let validatedPassword = "";
+let test = "test";
 
 // These functions are for the login page
 {
@@ -13,6 +14,15 @@ let validatedPassword = "";
         else {
             validateUserName(username);
             validatePassword(password);
+
+            $.ajax({
+                url: '/Home/LoginAction',
+                type: 'GET',
+                data: { username: validatedUsername, password: validatedPassword },
+                success: function (data) {
+                    window.location.href = '/Home/Privacy';
+                },
+            });
         }
 
         clearFields();

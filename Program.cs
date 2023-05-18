@@ -1,8 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Cashier_POS.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<CashierPosDBContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
